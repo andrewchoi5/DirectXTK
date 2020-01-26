@@ -808,9 +808,9 @@ bool AudioEngine::Impl::Update()
         return false;
 
     HANDLE events[2] = { mEngineCallback.mCriticalError.get(), mVoiceCallback.mBufferEnd.get() };
-    DWORD result = WaitForMultipleObjectsEx(2, events, FALSE, 0, FALSE);
-    switch (result)
+    switch (WaitForMultipleObjectsEx(_countof(events), events, FALSE, 0, FALSE))
     {
+        default:
         case WAIT_TIMEOUT:
             break;
 
